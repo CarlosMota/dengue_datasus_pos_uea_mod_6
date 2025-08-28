@@ -1,0 +1,3 @@
+- [ ] Baixar os dados de 2024
+- [ ] Aplicar o chunk nos dados de 2024
+- [ ]

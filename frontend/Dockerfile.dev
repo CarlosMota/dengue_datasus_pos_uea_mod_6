@@ -1,0 +1,20 @@
+# Imagem leve com Node 22
+FROM node:22-alpine
+
+# Dependências nativas p/ eventuais builds (node-gyp)
+RUN apk add --no-cache python3 make g++ libc6-compat
+
+WORKDIR /usr/src/app
+
+# Habilita corepack (para pnpm/yarn se quiser)
+RUN corepack enable
+
+# Usuário não-root
+RUN adduser -D app && chown -R app:app /usr/src/app
+USER app
+
+# Deixe a instalação para o runtime (vamos montar o código via bind mount)
+EXPOSE 4200 49153
+
+# Comando padrão: servir a app (host 0.0.0.0 e polling p/ WSL/VMs)
+CMD sh -lc "npm ci || npm i && npx ng serve --host 0.0.0.0 --port 4200 --poll 2000"

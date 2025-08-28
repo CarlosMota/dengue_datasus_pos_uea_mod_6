@@ -1,0 +1,54 @@
+<div class="container">
+  <header>
+    <h1>{{ title }}</h1>
+    <p>Formulário baseado no dicionário de dados DENGBR23/24 - Casos de Dengue no Brasil 2023/2024</p>
+  </header>
+
+  <nav class="sections-nav">
+    <button *ngFor="let section of sections" [class.active]="currentSection === section.id"
+      (click)="navigateTo(section.id)">
+      {{ section.title }}
+    </button>
+  </nav>
+
+  <div class="form-container">
+    <form (ngSubmit)="onSubmit()">
+      @if (currentSection === 'identification') {
+      <app-identification-section />
+      }
+      @if (currentSection === 'patient') {
+      <app-patient-data-section />
+      }
+      @if (currentSection === 'residence') {
+      <app-residence-section />
+      }
+      @if (currentSection === 'symptoms') {
+      <app-symptoms-section />
+      }
+      @if (currentSection === 'comorbidities') {
+      <app-comorbidities-section />
+      }
+      @if (currentSection === 'laboratory') {
+      <app-laboratory-section />
+      }
+      @if (currentSection === 'hospitalization') {
+      <app-hospitalization-section />
+      }
+      @if (currentSection === 'closure') {
+      <app-closure-section />
+      }
+
+      <div class="navigation-buttons">
+        @if (currentSection !== 'identification') {
+        <button type="button" (click)="navigateToPrevious()">Anterior</button>
+        }
+        @if (currentSection !== 'closure') {
+        <button type="button" (click)="navigateToNext()">Próximo</button>
+        }
+        @if (currentSection === 'closure') {
+        <button type="submit">Enviar Formulário</button>
+        }
+      </div>
+    </form>
+  </div>
+</div>

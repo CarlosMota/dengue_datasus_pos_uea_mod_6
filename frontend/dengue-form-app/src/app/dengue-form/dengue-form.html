@@ -1,0 +1,525 @@
+<div class="google-form-container">
+  <div class="form-header">
+    <h1>Formulário de Notificação de Dengue</h1>
+    <p>Dataset DENGBR25 - Casos de Dengue Brasil 2025</p>
+  </div>
+
+  <div class="form-content">
+    <form [formGroup]="dengueForm" (ngSubmit)="onSubmit()">
+      
+      <!-- Seção 1: Identificação da Notificação -->
+      <div class="form-section">
+        <h2 class="section-title">📋 Identificação da Notificação</h2>
+        
+        <div class="form-field">
+          <mat-form-field>
+            <mat-label>Tipo de Notificação *</mat-label>
+            <mat-select formControlName="tp_not">
+              <mat-option *ngFor="let tipo of tipoNotificacao" [value]="tipo.value">
+                {{tipo.label}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="form-field">
+          <mat-form-field>
+            <mat-label>Código CID-10 da doença</mat-label>
+            <input matInput formControlName="id_agravo" placeholder="Ex: A90, A91">
+          </mat-form-field>
+        </div>
+
+        <div class="form-field">
+          <mat-form-field>
+            <mat-label>Data da Notificação *</mat-label>
+            <input matInput [matDatepicker]="picker1" formControlName="dt_notific">
+            <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <div class="form-field">
+          <mat-form-field>
+            <mat-label>UF da Notificação *</mat-label>
+            <input matInput formControlName="sg_uf_not" placeholder="Ex: SP, RJ" maxlength="2">
+          </mat-form-field>
+        </div>
+
+        <div class="form-field">
+          <mat-form-field>
+            <mat-label>Código do Município</mat-label>
+            <input matInput formControlName="id_municip" placeholder="Código IBGE">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- Seção 2: Dados do Paciente -->
+      <div class="form-section">
+        <h2 class="section-title">👤 Dados do Paciente</h2>
+        
+        <div class="form-field">
+          <mat-form-field>
+            <mat-label>Data de início dos primeiros sintomas</mat-label>
+            <input matInput [matDatepicker]="picker2" formControlName="dt_sin_pri">
+            <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <div class="form-field">
+          <mat-form-field>
+            <mat-label>Ano de nascimento</mat-label>
+            <input matInput formControlName="ano_nasc" placeholder="AAAA" maxlength="4">
+          </mat-form-field>
+        </div>
+
+        <div class="form-field">
+          <mat-form-field>
+            <mat-label>Idade</mat-label>
+            <input matInput formControlName="nu_idade_n" placeholder="Ex: 4018 = 18 anos">
+          </mat-form-field>
+        </div>
+
+        <div class="form-field">
+          <mat-form-field>
+            <mat-label>Sexo *</mat-label>
+            <mat-select formControlName="cs_sexo">
+              <mat-option *ngFor="let sexo of sexoOptions" [value]="sexo.value">
+                {{sexo.label}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="form-field">
+          <mat-form-field>
+            <mat-label>Gestante</mat-label>
+            <mat-select formControlName="cs_gestant">
+              <mat-option *ngFor="let gestante of gestanteOptions" [value]="gestante.value">
+                {{gestante.label}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="form-field">
+          <mat-form-field>
+            <mat-label>Raça/Cor</mat-label>
+            <mat-select formControlName="cs_raca">
+              <mat-option *ngFor="let raca of racaOptions" [value]="raca.value">
+                {{raca.label}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="form-field">
+          <mat-form-field>
+            <mat-label>Escolaridade</mat-label>
+            <mat-select formControlName="cs_escol_n">
+              <mat-option *ngFor="let escolaridade of escolaridadeOptions" [value]="escolaridade.value">
+                {{escolaridade.label}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- Seção 3: Dados de Residência -->
+      <div class="form-section">
+        <h2 class="section-title">🏠 Dados de Residência e Procedência</h2>
+        
+        <div class="form-field">
+          <mat-form-field>
+            <mat-label>UF de Residência</mat-label>
+            <input matInput formControlName="sg_uf" placeholder="Ex: SP, RJ" maxlength="2">
+          </mat-form-field>
+        </div>
+
+        <div class="form-field">
+          <mat-form-field>
+            <mat-label>Município de Residência</mat-label>
+            <input matInput formControlName="id_mn_resi" placeholder="Código IBGE">
+          </mat-form-field>
+        </div>
+
+        <div class="form-field">
+          <mat-form-field>
+            <mat-label>País de Residência</mat-label>
+            <input matInput formControlName="id_pais" placeholder="Se exterior">
+          </mat-form-field>
+        </div>
+
+        <div class="form-field">
+          <mat-form-field>
+            <mat-label>Data de início da investigação</mat-label>
+            <input matInput [matDatepicker]="picker3" formControlName="dt_invest">
+            <mat-datepicker-toggle matIconSuffix [for]="picker3"></mat-datepicker-toggle>
+            <mat-datepicker #picker3></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <div class="form-field">
+          <mat-form-field>
+            <mat-label>Ocupação (CBO)</mat-label>
+            <input matInput formControlName="id_ocupa_n" placeholder="Código CBO">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- Seção 4: Sinais e Sintomas Clínicos -->
+      <div class="form-section">
+        <h2 class="section-title">🩺 Sinais e Sintomas Clínicos</h2>
+        <p><small>Para todos os campos abaixo: 1 = Sim, 2 = Não</small></p>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px;">
+          <mat-form-field>
+            <mat-label>Febre</mat-label>
+            <mat-select formControlName="febre">
+              <mat-option *ngFor="let option of simNaoOptions" [value]="option.value">
+                {{option.label}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Dor muscular (Mialgia)</mat-label>
+            <mat-select formControlName="mialgia">
+              <mat-option *ngFor="let option of simNaoOptions" [value]="option.value">
+                {{option.label}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Dor de cabeça (Cefaleia)</mat-label>
+            <mat-select formControlName="cefaleia">
+              <mat-option *ngFor="let option of simNaoOptions" [value]="option.value">
+                {{option.label}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Manchas na pele (Exantema)</mat-label>
+            <mat-select formControlName="exantema">
+              <mat-option *ngFor="let option of simNaoOptions" [value]="option.value">
+                {{option.label}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Vômito</mat-label>
+            <mat-select formControlName="vomito">
+              <mat-option *ngFor="let option of simNaoOptions" [value]="option.value">
+                {{option.label}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Náusea/Enjoo</mat-label>
+            <mat-select formControlName="nausea">
+              <mat-option *ngFor="let option of simNaoOptions" [value]="option.value">
+                {{option.label}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Dor nas costas</mat-label>
+            <mat-select formControlName="dor_costas">
+              <mat-option *ngFor="let option of simNaoOptions" [value]="option.value">
+                {{option.label}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Conjuntivite</mat-label>
+            <mat-select formControlName="conjuntvit">
+              <mat-option *ngFor="let option of simNaoOptions" [value]="option.value">
+                {{option.label}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Artrite</mat-label>
+            <mat-select formControlName="artrite">
+              <mat-option *ngFor="let option of simNaoOptions" [value]="option.value">
+                {{option.label}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Dor nas articulações (Artralgia)</mat-label>
+            <mat-select formControlName="artralgia">
+              <mat-option *ngFor="let option of simNaoOptions" [value]="option.value">
+                {{option.label}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Petéquias</mat-label>
+            <mat-select formControlName="petequia_n">
+              <mat-option *ngFor="let option of simNaoOptions" [value]="option.value">
+                {{option.label}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Dor retroorbital</mat-label>
+            <mat-select formControlName="dor_retro">
+              <mat-option *ngFor="let option of simNaoOptions" [value]="option.value">
+                {{option.label}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- Seção 5: Doenças Pré-existentes -->
+      <div class="form-section">
+        <h2 class="section-title">🏥 Doenças Pré-existentes (Comorbidades)</h2>
+        <p><small>Para todos os campos abaixo: 1 = Sim, 2 = Não</small></p>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px;">
+          <mat-form-field>
+            <mat-label>Diabetes mellitus</mat-label>
+            <mat-select formControlName="diabetes">
+              <mat-option *ngFor="let option of simNaoOptions" [value]="option.value">
+                {{option.label}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Doenças hematológicas</mat-label>
+            <mat-select formControlName="hematolog">
+              <mat-option *ngFor="let option of simNaoOptions" [value]="option.value">
+                {{option.label}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Hepatopatias crônicas</mat-label>
+            <mat-select formControlName="hepatopat">
+              <mat-option *ngFor="let option of simNaoOptions" [value]="option.value">
+                {{option.label}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Doença renal crônica</mat-label>
+            <mat-select formControlName="renal">
+              <mat-option *ngFor="let option of simNaoOptions" [value]="option.value">
+                {{option.label}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Hipertensão arterial</mat-label>
+            <mat-select formControlName="hipertensa">
+              <mat-option *ngFor="let option of simNaoOptions" [value]="option.value">
+                {{option.label}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Doença ácido-péptica</mat-label>
+            <mat-select formControlName="acido_pept">
+              <mat-option *ngFor="let option of simNaoOptions" [value]="option.value">
+                {{option.label}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Doença autoimune</mat-label>
+            <mat-select formControlName="auto_imune">
+              <mat-option *ngFor="let option of simNaoOptions" [value]="option.value">
+                {{option.label}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- Seção 6: Exames Laboratoriais -->
+      <div class="form-section">
+        <h2 class="section-title">🔬 Exames Laboratoriais</h2>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px;">
+          <mat-form-field>
+            <mat-label>Data da coleta de sorologia IgM</mat-label>
+            <input matInput [matDatepicker]="picker4" formControlName="dt_coleta">
+            <mat-datepicker-toggle matIconSuffix [for]="picker4"></mat-datepicker-toggle>
+            <mat-datepicker #picker4></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Resultado sorologia IgM</mat-label>
+            <mat-select formControlName="resul_soro">
+              <mat-option *ngFor="let resultado of resultadoExameOptions" [value]="resultado.value">
+                {{resultado.label}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Data coleta exame NS1</mat-label>
+            <input matInput [matDatepicker]="picker5" formControlName="dt_ns1">
+            <mat-datepicker-toggle matIconSuffix [for]="picker5"></mat-datepicker-toggle>
+            <mat-datepicker #picker5></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Resultado NS1</mat-label>
+            <mat-select formControlName="resul_ns1">
+              <mat-option *ngFor="let resultado of resultadoExameOptions" [value]="resultado.value">
+                {{resultado.label}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Data coleta RT-PCR</mat-label>
+            <input matInput [matDatepicker]="picker6" formControlName="dt_pcr">
+            <mat-datepicker-toggle matIconSuffix [for]="picker6"></mat-datepicker-toggle>
+            <mat-datepicker #picker6></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Resultado RT-PCR</mat-label>
+            <mat-select formControlName="resul_pcr">
+              <mat-option *ngFor="let resultado of resultadoExameOptions" [value]="resultado.value">
+                {{resultado.label}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- Seção 7: Hospitalização -->
+      <div class="form-section">
+        <h2 class="section-title">🏥 Hospitalização e Local da Infecção</h2>
+        
+        <div class="form-field">
+          <mat-form-field>
+            <mat-label>Paciente foi hospitalizado?</mat-label>
+            <mat-select formControlName="hospitaliz">
+              <mat-option value="1">Sim</mat-option>
+              <mat-option value="2">Não</mat-option>
+              <mat-option value="9">Ignorado</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="form-field">
+          <mat-form-field>
+            <mat-label>Data da internação</mat-label>
+            <input matInput [matDatepicker]="picker7" formControlName="dt_interna">
+            <mat-datepicker-toggle matIconSuffix [for]="picker7"></mat-datepicker-toggle>
+            <mat-datepicker #picker7></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <div class="form-field">
+          <mat-form-field>
+            <mat-label>UF provável da infecção</mat-label>
+            <input matInput formControlName="coufinf" placeholder="Ex: SP, RJ" maxlength="2">
+          </mat-form-field>
+        </div>
+
+        <div class="form-field">
+          <mat-form-field>
+            <mat-label>Município provável da infecção</mat-label>
+            <input matInput formControlName="municipio" placeholder="Código IBGE">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- Seção 8: Encerramento do Caso -->
+      <div class="form-section">
+        <h2 class="section-title">📋 Encerramento do Caso</h2>
+        
+        <div class="form-field">
+          <mat-form-field>
+            <mat-label>Classificação final</mat-label>
+            <mat-select formControlName="classi_fin">
+              <mat-option value="1">Confirmado</mat-option>
+              <mat-option value="2">Descartado</mat-option>
+              <mat-option value="9">Ignorado</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="form-field">
+          <mat-form-field>
+            <mat-label>Critério de confirmação</mat-label>
+            <mat-select formControlName="criterio">
+              <mat-option value="1">Laboratorial</mat-option>
+              <mat-option value="2">Clínico-epidemiológico</mat-option>
+              <mat-option value="3">Clínico</mat-option>
+              <mat-option value="4">Descartado</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="form-field">
+          <mat-form-field>
+            <mat-label>Data de encerramento</mat-label>
+            <input matInput [matDatepicker]="picker8" formControlName="dt_encerra">
+            <mat-datepicker-toggle matIconSuffix [for]="picker8"></mat-datepicker-toggle>
+            <mat-datepicker #picker8></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <div class="form-field">
+          <mat-form-field>
+            <mat-label>Evolução</mat-label>
+            <mat-select formControlName="evolucao">
+              <mat-option value="1">Cura</mat-option>
+              <mat-option value="2">Óbito por dengue</mat-option>
+              <mat-option value="3">Óbito por outras causas</mat-option>
+              <mat-option value="4">Óbito em investigação</mat-option>
+              <mat-option value="9">Ignorado</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="form-field">
+          <mat-form-field>
+            <mat-label>Data do óbito (se aplicável)</mat-label>
+            <input matInput [matDatepicker]="picker9" formControlName="dt_obito">
+            <mat-datepicker-toggle matIconSuffix [for]="picker9"></mat-datepicker-toggle>
+            <mat-datepicker #picker9></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- Botões de ação -->
+      <div style="margin-top: 32px; text-align: center;">
+        <button mat-raised-button color="primary" type="submit" [disabled]="!dengueForm.valid || isLoading">
+          <mat-spinner *ngIf="isLoading" diameter="20" style="margin-right: 8px;"></mat-spinner>
+          {{ isLoading ? 'Enviando...' : 'Enviar Notificação' }}
+        </button>
+        <button mat-button type="button" style="margin-left: 16px;" (click)="clearForm()" [disabled]="isLoading">
+          Limpar Formulário
+        </button>
+        <button mat-stroked-button type="button" style="margin-left: 16px;" (click)="testApiConnection()" [disabled]="isLoading">
+          Testar Conexão API
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
